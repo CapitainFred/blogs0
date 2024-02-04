@@ -246,7 +246,7 @@ async function loadViews() {
   document.getElementById("views").innerText = snap.val() + 1;
 }
 
-// Добавление кода для создания блога
+// Код для создания блога
 
 window.createBlog = async () => {
   const title = document.getElementById("blog-title").value;

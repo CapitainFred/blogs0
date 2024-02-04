@@ -14,8 +14,12 @@
 
 <body>
   <header class="header">
-    <h1 id="title">My blogs</h1>
-    <p id="description">by <a href="https://t.me/ershovmaxime">ME</a></p>
+    <h1 id="blog-name">My blogs</h1>
+    <p>by <a href="https://t.me/ershovmaxime">ME</a></p>
+    <form id="search-form" onsubmit="searchBlogs(document.getElementById('search-input').value); return false;">
+      <input type="text" id="search-input" placeholder="Search blogs..." />
+      <button type="submit">Search</button>
+    </form>
   </header>
 
   <p id="views" title="Total Views"></p>
@@ -67,19 +71,6 @@
   </script>
   <script src="main.js"></script>
 </body>
-
-<header class="header">
-  <h1 id="blog-name">My blogs</h1>
-  <p>by <a href="https://t.me/ershovmaxime">ME</a></p>
-  
-  <!-- Поле поиска -->
-  <form id="search-form" onsubmit="searchBlogs(document.getElementById('search-input').value); return false;">
-    <input type="text" id="search-input" placeholder="Search blogs..." />
-    <button type="submit">Search</button>
-  </form>
-</header>
-  <p id="views" title="Total Views"></p>
-
   <div class="top-nav">
     <div>
         <a href="author.html">author</a>

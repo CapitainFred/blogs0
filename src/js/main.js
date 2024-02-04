@@ -178,15 +178,15 @@ window.adminAddBlog = async (thisForm, title, description) => {
     return;
   }
   if (title.length < 3) {
-    alert("Title is too short,\nminimum lenght is 3 characters");
+    alert("Title is too short,\nminimum length is 3 characters");
     return;
   }
   if (title.length > 32) {
-    alert("Title is too long,\nmaximum lenght is 32 characters");
+    alert("Title is too long,\nmaximum length is 32 characters");
     return;
   }
   if (description.length > 64) {
-    alert("Description is too long,\nmaximum lenght is 64 characters");
+    alert("Description is too long,\nmaximum length is 64 characters");
     return;
   }
   let snap = await db.get(db.ref(db.link, "blogs/" + title.toLowerCase()));
@@ -205,7 +205,7 @@ window.adminAddBlog = async (thisForm, title, description) => {
   border-radius: 8px;
 }`,
   };
-  if (description.length > 0) {
+  if (description.length > 0)  {
     blogData.description = description;
   }
   await db.set(db.ref(db.link, "blogs/" + title.toLowerCase()), blogData);
@@ -229,7 +229,7 @@ window.adminDelBlog = async (blogId) => {
     alert("No blog with this title!");
     return;
   }
-  if (window.confirm(`Do you realy want to remove ${blogId}?`)) {
+  if (window.confirm(`Do you really want to remove ${blogId}?`)) {
     await db.rem(db.ref(db.link, "blogs/" + blogId));
     viewBlog();
   }
@@ -245,3 +245,26 @@ async function loadViews() {
   }
   document.getElementById("views").innerText = snap.val() + 1;
 }
+
+// Добавление кода для создания блога
+
+window.createBlog = async () => {
+  const title = document.getElementById("blog-title").value;
+  const description = document.getElementById("blog-description").value;
+
+  if (!title || !description) {
+    alert("Please enter both title and description for the blog.");
+    return;
+  }
+
+  await adminAddBlog(null, title, description); // Вызов функции создания блога
+
+  // Очистка полей ввода после создания блога
+  document.getElementById("blog-title").value = "";
+  document.getElementById("blog-description").value = "";
+};
+
+// Назначение функции createBlog на событие click кнопки создания блога
+document.getElementById("create-blog-btn").addEventListener("click", createBlog);
+
+// Конец добавления кода для создания блога

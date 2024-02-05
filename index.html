@@ -44,17 +44,17 @@
 
   <div class="top-nav">
     <div>
-        <a href="author.html">author</a>
+      <a href="author.html">author</a>
     </div>
     <div>
-        <a href="2.html">2</a>
+      <a href="2.html">2</a>
     </div>
-    <div> 
-        <a href="calc.html">calc</a>
-    </div>
-    <div> 
-        <a href="calc2.0.html">calc2.0</a>
     <div>
+      <a href="calc.html">calc</a>
+    </div>
+    <div>
+      <a href="calc2.0.html">calc2.0</a>
+    </div>
   </div>
 
   <button id="create-blog-btn">Create Blog</button>
@@ -83,17 +83,24 @@
       rem: remove
     }
 
+    let snap = await db.get(db.ref(db.link, "blogs"));
+    snap.forEach((blogSnap) => {
+      document.getElementById("blogs-container").innerHTML += `
+        <div class="blog">
+          <p class="blog-title")">${blogSnap.key}</p>
+          <p class="blog-description">${blogSnap.val().description}</p>
+        </div>
+      `;
+    });
+
     // Функция создания блога
     function createBlog() {
-      const title = document.getElementById('blog-title').value;
-      const description = document.getElementById('blog-description').value;
+      const title = prompt("Enter blog's title: ", "example title");
+      const description = prompt("Enter blog's description: ", "example description");
 
-      db.ref('/blogs').push({
-        title: title,
-        description: description,
+      db.upd(db.ref(db.link, 'blogs/' + title), {
+        description: description
       }).then(() => {
-        document.getElementById('blog-title').value = '';
-        document.getElementById('blog-description').value = '';
         alert('Blog created successfully!');
       }).catch(error => {
         console.error('Error creating blog:', error);
@@ -101,7 +108,6 @@
       });
     }
 
-    // Обработчик события нажатия на кнопку для создания блога
     document.getElementById('create-blog-btn').addEventListener('click', createBlog);
   </script>
 </body>
